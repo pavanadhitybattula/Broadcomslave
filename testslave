@@ -1,1 +1,0 @@
-FROM sed-vip-docker-release-candidate-local.artifactory-lvn.broadcom.net/sedvip/common/be/sedvip-base-be:21
