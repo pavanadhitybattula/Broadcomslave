@@ -1,12 +1,15 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+# Pull base image
+FROM debian:latest
 
-WORKDIR /app
-ADD . /app/
+# Dockerfile Maintainer
+MAINTAINER Jan Wagner "waja@cyconet.org"
 
-EXPOSE 3000
+# Install nginx and adjust nginx config to stay in foreground
+RUN apt-get update && apt-get install --no-install-recommends -y nginx; \
+ echo "daemon off;" >> /etc/nginx/nginx.conf
 
-RUN dotnet build
+# Expose HTTP
+EXPOSE 80
 
-WORKDIR /app/Core.Application/
-
-ENTRYPOINT ["dotnet", "run", "Core.Application.dll"]
+# Start nginx
+CMD ["/usr/sbin/nginx"]
